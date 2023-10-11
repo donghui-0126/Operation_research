@@ -23,8 +23,14 @@ def init_mat(mat, vector):
         insert_mat(mat, start, end, cost)
     return mat
 
+
+
+"""
+시작지점과 끝지점을 잇는 네트워크의 비용을 나타낸 벡터입니다. 
+[시작노드, 도착노드, 비용] 순으로 저장됩니다.
+"""
 start_end_cost_vector = [
-                        [0, 1, 2    ],
+                        [0, 1, 2],
                         [0, 2 ,4],
                         [0, 3, 3],
                         [1, 4, 7],
@@ -74,3 +80,21 @@ cost = solution(matrix, 10)
 
 print("complete optimization!")
 print("각 노드에서 end point까지 가는데 드는 비용:", cost)
+
+"""
+출력값: 
+optimizing process... [10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 0]
+optimizing process... [10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 4, 0]
+optimizing process... [10000, 10000, 10000, 10000, 10000, 10000, 10000, 3, 4, 0]
+optimizing process... [10000, 10000, 10000, 10000, 10000, 10000, 6, 3, 4, 0]
+optimizing process... [10000, 10000, 10000, 10000, 10000, 7, 6, 3, 4, 0]
+optimizing process... [10000, 10000, 10000, 10000, 4, 7, 6, 3, 4, 0]
+optimizing process... [10000, 10000, 10000, 8, 4, 7, 6, 3, 4, 0]
+optimizing process... [10000, 10000, 7, 8, 4, 7, 6, 3, 4, 0]
+optimizing process... [10000, 11, 7, 8, 4, 7, 6, 3, 4, 0]
+optimizing process... [11, 11, 7, 8, 4, 7, 6, 3, 4, 0]
+
+
+complete optimization!
+각 노드에서 end point까지 가는데 드는 비용: [11, 11, 7, 8, 4, 7, 6, 3, 4, 0]
+"""
