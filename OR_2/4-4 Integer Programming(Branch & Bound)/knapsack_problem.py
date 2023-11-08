@@ -49,9 +49,9 @@ def bound(node, num_item, max_W, item_arr):
 		total_weight += int(item_arr[j].weight)
 		profitBound += item_arr[j].value
 		j += 1
-  
-	# 가방에 들어가는 물건을 끝까지 고려하지 못했을 때, 최적값을 
-	# 이부분 무슨 코드지??? #
+    
+	# 가방에 들어가는 물건을 끝까지 고려하지 못했을 때, 
+	# 가능해는 아니지만(max W를 넘어가는 상황) 최적값을 구해준다
 	if j < num_item:
 		profitBound += int((max_W - total_weight) * item_arr[j].value / item_arr[j].weight)
 
@@ -60,7 +60,7 @@ def bound(node, num_item, max_W, item_arr):
 # 냅색문제 풀기
 def knapsack_solution(max_W, item_arr, num_item):
 	item_arr.sort(key=cmp_to_key(compare), reverse=True)
-
+ 
 	# Queue를 통해서 노드들을 저장함
 	q = Queue()
 	# 첫번째 Root Node 생성
@@ -82,24 +82,29 @@ def knapsack_solution(max_W, item_arr, num_item):
 		if u.level == num_item - 1:
 			continue
 		
-		# 새로운 노드를 생성한다.
+		# 다음 Item이 추가되는 새로운 노드를 생성한다.
 		v = Node(u.level + 1, u.profit +
 				item_arr[u.level + 1].value, 0, u.weight + item_arr[u.level + 1].weight)
 
-		# 가능해 + 최적값 > 기존최적값 이라면 최적값 업데이트
+		# (가능해 AND 최적값 > 기존최적값) => 최적값 
 		if v.weight <= max_W and v.profit > maxProfit:
 			maxProfit = v.profit
 
-		# 여기서부터 코드리뷰 다시 하기 
+		# 다음 Item이 추가되는 노드에서 
+		# 최적값 bound를 구한다. 
 		v.bound = bound(v, num_item, max_W, item_arr)
 
+		# 굳이 조사할 필요가 없는 노드(F(1)에 근거함)를 조사하지 않음.
+		# 굳이 queue에 삽입하지 않는다.
 		if v.bound > maxProfit:
 			q.put(v)
 
+		# 다음 Item이 추가되지 않는 노드를 생성
 		v = Node(u.level + 1, u.profit, 0, u.weight)
-
+		# 다음 Item이 추가되지 않는 노드의 bound 계산
 		v.bound = bound(v, num_item, W, item_arr)
-
+		# 굳이 조사할 필요가 없는 노드(F(1)에 근거함)를 조사하지 않음.
+		# 굳이 queue에 삽입하지 않는다. 
 		if v.bound > maxProfit:
 			q.put(v)
 
@@ -107,6 +112,7 @@ def knapsack_solution(max_W, item_arr, num_item):
 
 W = [40, 50, 30, 10, 10, 40, 30]
 V = [40, 60, 10, 10, 3, 20, 60]
+
 
 # Driver Code
 if __name__ == '__main__':
