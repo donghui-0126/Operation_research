@@ -79,12 +79,12 @@ def knapsack_solution(max_W, item_arr, num_item):
 			v = Node(0, 0, 0, 0)
 
 		# 모든 경우를 고려했으니 아무것도 하지않는다. 
-		if u.level == n - 1:
+		if u.level == num_item - 1:
 			continue
 		
 		# 새로운 노드를 생성한다.
 		v = Node(u.level + 1, u.profit +
-				arr[u.level + 1].value, 0, u.weight + arr[u.level + 1].weight)
+				item_arr[u.level + 1].value, 0, u.weight + item_arr[u.level + 1].weight)
 
 		# 가능해 + 최적값 > 기존최적값 이라면 최적값 업데이트
 		if v.weight <= max_W and v.profit > maxProfit:
@@ -98,7 +98,7 @@ def knapsack_solution(max_W, item_arr, num_item):
 
 		v = Node(u.level + 1, u.profit, 0, u.weight)
 
-		v.bound = bound(v, n, W, arr)
+		v.bound = bound(v, num_item, W, item_arr)
 
 		if v.bound > maxProfit:
 			q.put(v)
@@ -110,10 +110,10 @@ V = [40, 60, 10, 10, 3, 20, 60]
 
 # Driver Code
 if __name__ == '__main__':
-	W = 100
-	arr = [Item(40, 40), Item(50, 60), Item(
+	max_W = 100
+	item_arr = [Item(40, 40), Item(50, 60), Item(
 		30, 10), Item(10, 10), Item(10, 3),
         Item(40, 20), Item(30, 60)]
-	n = len(arr)
+	num_item = len(item_arr)
 
-	print('Maximum possible profit =', knapsack_solution(W, arr, n))
+	print('Maximum possible profit =', knapsack_solution(W, item_arr, num_item))
