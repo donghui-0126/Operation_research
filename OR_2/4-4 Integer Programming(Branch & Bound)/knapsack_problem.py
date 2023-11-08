@@ -102,7 +102,7 @@ def knapsack_solution(max_W, item_arr, num_item):
 		# 다음 Item이 추가되지 않는 노드를 생성
 		v = Node(u.level + 1, u.profit, 0, u.weight)
 		# 다음 Item이 추가되지 않는 노드의 bound 계산
-		v.bound = bound(v, num_item, W, item_arr)
+		v.bound = bound(v, num_item, max_W, item_arr)
 		# 굳이 조사할 필요가 없는 노드(F(1)에 근거함)를 조사하지 않음.
 		# 굳이 queue에 삽입하지 않는다. 
 		if v.bound > maxProfit:
@@ -110,8 +110,7 @@ def knapsack_solution(max_W, item_arr, num_item):
 
 	return maxProfit
 
-W = [40, 50, 30, 10, 10, 40, 30]
-V = [40, 60, 10, 10, 3, 20, 60]
+
 
 
 # Driver Code
@@ -122,4 +121,4 @@ if __name__ == '__main__':
         Item(40, 20), Item(30, 60)]
 	num_item = len(item_arr)
 
-	print('Maximum possible profit =', knapsack_solution(W, item_arr, num_item))
+	print('Maximum possible profit =', knapsack_solution(max_W, item_arr, num_item))
