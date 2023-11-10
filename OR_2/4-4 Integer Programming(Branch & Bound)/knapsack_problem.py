@@ -1,3 +1,7 @@
+# https://www.geeksforgeeks.org/branch-and-bound-algorithm/
+# 위 링크에서 코드를 카피하고 한글 주석을 새로 달면서 알고리즘을 이해했음. 
+
+
 from queue import Queue
 from functools import cmp_to_key
 
